@@ -1,211 +1,277 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Animora — Animation Studio</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#100d19;color:#f5efff;font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;display:flex}
-.sidebar{width:220px;background:#191323;padding:22px 15px;border-right:1px solid #30243f;flex-shrink:0}
-.logo{font-size:27px;font-weight:900;color:#c29aff;letter-spacing:2px}
-.tag{font-size:9px;letter-spacing:2px;color:#998aa9;margin-top:7px}
-.nav-title{font-size:10px;color:#84758f;margin:30px 8px 10px;letter-spacing:2px}
-.nav{padding:12px;border-radius:8px;color:#c2b5d0;font-size:13px;margin:4px 0}
-.nav.active,.nav:hover{background:#38264e;color:#e4d2ff}
-.main{flex:1;min-width:0}
-header{height:65px;border-bottom:1px solid #30243f;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
-header span{color:#b9a9ca;font-size:13px}
-button{border:1px solid #63468a;background:#302341;color:#eee2ff;padding:10px 14px;border-radius:8px}
-button.primary{background:#8754d0;border-color:#a67ce9}
-.content{padding:22px;max-width:1500px;margin:auto}
-h1{font-size:23px;margin:0 0 7px}
-.sub{font-size:12px;color:#a99bb8;margin-bottom:22px}
-.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,1fr);gap:15px}
-.panel{background:#1b1526;border:1px solid #382b49;border-radius:12px;padding:16px;margin-bottom:15px;min-width:0}
-.panel-title{font-size:12px;font-weight:bold;margin-bottom:15px;letter-spacing:.5px}
-.stage{height:330px;background:radial-gradient(ellipse at center,#45305f,#21192e 75%);border:1px solid #59406f;border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.stage:after{content:"";position:absolute;bottom:25px;width:220px;height:15px;background:#100d19;border-radius:50%;filter:blur(8px)}
-.character{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;animation:bob 2s ease-in-out infinite}
-.head{width:65px;height:65px;background:#ffd1aa;border-radius:50%;border:3px solid #392747;position:relative}
-.head:before,.head:after{content:"";position:absolute;top:28px;width:7px;height:7px;background:#342238;border-radius:50%}
-.head:before{left:16px}.head:after{right:16px}
-.bodychar{width:76px;height:90px;background:#a77aef;border:3px solid #392747;border-radius:25px 25px 16px 16px}
-.legs{display:flex;gap:12px}
-.legs i{display:block;width:20px;height:60px;background:#30233f;border-radius:10px}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.stage-label{position:absolute;top:13px;left:13px;font-size:10px;color:#d4c0ee}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.actions button{font-size:11px}
-.chat{height:270px;display:flex;flex-direction:column}
-.messages{flex:1;overflow:auto;font-size:12px;color:#d1c4dc;line-height:1.6}
-.message{background:#2b2039;padding:10px;border-radius:8px;margin-bottom:8px}
-.chatrow{display:flex;gap:7px;margin-top:12px}
-input{width:100%;min-width:0;background:#100d19;border:1px solid #49385e;border-radius:8px;padding:11px;color:white}
-.timeline{display:flex;gap:8px;overflow:auto}
-.clip{min-width:100px;background:#473064;border:1px solid #7651a0;border-radius:6px;padding:12px;text-align:center;font-size:11px}
-.small{font-size:11px;color:#a99bb8}
-@media(max-width:750px){
-.sidebar{width:65px;padding:15px 7px}
-.logo{font-size:15px;letter-spacing:0;writing-mode:vertical-rl}
-.tag,.nav-title,.nav span{display:none}
-.nav{text-align:center;padding:12px 3px}
-header{padding:0 10px}
-.content{padding:12px}
-.layout{grid-template-columns:1fr}
-.stage{height:280px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial;background:#100d1c;color:#f5f0ff;height:100vh;overflow:hidden}
+button,select,input{font:inherit}
+button{cursor:pointer;border:0}
+.app{display:flex;height:100vh}
+.sidebar{width:210px;background:#171327;border-right:1px solid #302746;padding:20px 14px;flex-shrink:0}
+.logo{font-size:25px;font-weight:800;color:#c5a5ff}
+.logo span{color:white}
+.tagline{font-size:10px;color:#9388aa;margin:6px 0 32px}
+.section{font-size:10px;color:#827795;margin:20px 8px 10px;letter-spacing:2px}
+.nav{padding:12px;border-radius:10px;color:#bdb3d0;font-size:13px;margin-bottom:5px}
+.nav.active{background:#34234f;color:white}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{height:65px;border-bottom:1px solid #302746;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:#151122}
+.project-name{font-size:14px;font-weight:bold}
+.project-sub{font-size:10px;color:#9388aa;margin-top:5px}
+.btn{padding:10px 14px;border-radius:8px;background:#302443;color:white;font-size:12px}
+.primary{background:#9360d9}
+.content{flex:1;min-height:0;display:flex;flex-direction:column;padding:15px;gap:12px}
+.workspace{flex:1;min-height:230px;display:flex;gap:12px}
+.stage-area{flex:1;min-width:0;background:#1b1728;border:1px solid #342a46;border-radius:13px;padding:14px;display:flex;flex-direction:column}
+.heading{display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px}
+.stage{flex:1;min-height:190px;border-radius:9px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(#85c7ed 0%,#d3e8f7 65%,#86bd83 65%,#57965c 100%)}
+.stage.night{background:linear-gradient(#171d48,#444a81 65%,#303b55 65%,#1c493d)}
+.stage.sunset{background:linear-gradient(#e99b85,#f5cf9c 65%,#8eaa77 65%,#547d59)}
+.stage.space{background:radial-gradient(circle at 70% 20%,#6e54a9,#211c48 55%,#11152f)}
+.ground{position:absolute;bottom:0;width:100%;height:32%;background:linear-gradient(#79b86b,#43864e);border-radius:50% 50% 0 0}
+.night .ground{background:linear-gradient(#385b55,#1b383b)}
+.sun{position:absolute;top:12%;right:15%;width:55px;height:55px;border-radius:50%;background:#fff0a8;box-shadow:0 0 45px #fff3b2}
+.space .sun{background:#f3d9ff}
+.cloud{position:absolute;top:20%;left:17%;width:85px;height:22px;background:white;border-radius:30px;opacity:.8}
+.character{position:absolute;z-index:3;bottom:27%;width:100px;height:175px;left:calc(50% - 50px);transform-origin:50% 100%}
+.head{position:absolute;top:0;left:20px;width:62px;height:62px;border-radius:45%;background:#ffb66e;border:3px solid #70462f}
+.hair{position:absolute;top:-7px;left:17px;width:67px;height:29px;background:#633a30;border-radius:50% 50% 20% 20%;z-index:2}
+.eye{position:absolute;top:28px;width:6px;height:9px;background:#39251f;border-radius:50%;z-index:3}
+.eye.a{left:17px}.eye.b{right:17px}
+.mouth{position:absolute;left:25px;top:42px;width:13px;height:7px;border-bottom:2px solid #8a3f40;border-radius:50%;z-index:3}
+.body{position:absolute;top:59px;left:18px;width:66px;height:68px;background:#ffb43f;border:3px solid #70462f;border-radius:19px 19px 12px 12px}
+.arm{position:absolute;top:68px;width:17px;height:54px;background:#ffb66e;border:3px solid #70462f;border-radius:15px;transform-origin:top center}
+.arm.left{left:6px;transform:rotate(17deg)}
+.arm.right{right:6px;transform:rotate(-17deg)}
+.leg{position:absolute;top:120px;width:20px;height:47px;background:#6b65bd;border:3px solid #39335f;border-radius:9px}
+.leg.left{left:27px}.leg.right{right:27px}
+.character.walk{animation:walk .65s infinite}
+.character.jump{animation:jump .75s infinite}
+.character.dance{animation:dance .7s infinite}
+.character.wave .arm.right{animation:wave .45s infinite alternate}
+@keyframes walk{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+@keyframes jump{0%,100%{transform:translateY(0)}50%{transform:translateY(-75px)}}
+@keyframes dance{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg) translateY(-15px)}}
+@keyframes wave{to{transform:rotate(-145deg)}}
+.label{position:absolute;bottom:12px;left:14px;font-size:10px;color:white;background:#0005;padding:6px 9px;border-radius:5px}
+.controls{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.control{background:#302443;color:white;border-radius:7px;padding:9px 13px;font-size:11px}
+.control.selected{background:#8958ce}
+.panel{width:220px;flex-shrink:0;background:#1b1728;border:1px solid #342a46;border-radius:13px;padding:15px;overflow-y:auto}
+.panel h3{font-size:13px;margin-bottom:14px}
+.field{margin:15px 0}
+.field label{display:block;color:#aaa0bc;font-size:10px;margin-bottom:8px}
+.field select,.field input{width:100%;padding:10px;background:#29223a;color:white;border:1px solid #443756;border-radius:7px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.actions button{padding:11px 5px;background:#302443;color:white;border-radius:7px;font-size:11px}
+.timeline{height:130px;flex-shrink:0;background:#1b1728;border:1px solid #342a46;border-radius:13px;padding:13px}
+.timeline-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:13px}
+.track{display:flex;gap:8px;overflow-x:auto}
+.scene-card{min-width:125px;padding:11px;background:#302443;border:1px solid #514065;border-radius:8px;font-size:11px;color:white;text-align:left}
+.scene-card.active{border:1px solid #bd92ff;background:#493365}
+.scene-card small{display:block;color:#bcb0ce;margin-top:7px}
+.prompt{display:flex;gap:8px}
+.prompt input{flex:1;min-width:0;background:#29223a;color:white;border:1px solid #443756;border-radius:8px;padding:12px}
+.prompt button{background:#9360d9;color:white;border-radius:8px;padding:0 15px}
+.status{font-size:10px;color:#a99bbd;margin-top:7px;min-height:14px}
+@media(max-width:760px){
+.sidebar{width:60px;padding:12px 6px}
+.logo{font-size:16px;text-align:center}
+.tagline,.section,.nav span{display:none}
+.nav{padding:13px 5px;text-align:center}
+.workspace{flex-direction:column;overflow:auto}
+.stage-area{min-height:280px;flex-shrink:0}
+.panel{width:100%;flex-shrink:0}
+.content{padding:9px}
+.topbar{padding:0 10px}
 }
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-<div class="logo">ANIMORA</div>
-<div class="tag">IMAGINE. ANIMATE. CREATE.</div>
-<div class="nav-title">WORKSPACE</div>
-<div class="nav active">◈ <span>Studio</span></div>
-<div class="nav">♙ <span>Characters</span></div>
-<div class="nav">▧ <span>Environments</span></div>
-<div class="nav">▤ <span>Projects</span></div>
-<div class="nav-title">AI STUDIO</div>
-<div class="nav">✦ <span>AI Assistant</span></div>
-<div class="nav">⚙ <span>Settings</span></div>
+<div class="logo">Ani<span>mora</span></div>
+<div class="tagline">IMAGINE. ANIMATE. CREATE.</div>
+<div class="section">WORKSPACE</div>
+<div class="nav active">🎬 <span>Animation Studio</span></div>
+<div class="nav">👤 <span>Characters</span></div>
+<div class="nav">🌄 <span>Environments</span></div>
+<div class="nav">📁 <span>My Projects</span></div>
+<div class="section">TOOLS</div>
+<div class="nav">🎭 <span>Actions</span></div>
+<div class="nav">🎥 <span>Camera</span></div>
+<div class="nav">🔊 <span>Audio</span></div>
 </aside>
-
 <main class="main">
-<header>
-<span>My Workspace / Untitled Project</span>
-<button class="primary" onclick="newProject()">＋ New project</button>
+<header class="topbar">
+<div><div class="project-name">My Animation Project</div><div class="project-sub">Untitled project · V2</div></div>
+<div><button class="btn" id="reset">Reset</button> <button class="btn primary" id="addTop">+ Scene</button></div>
 </header>
-
 <div class="content">
-<h1>Your creative studio.</h1>
-<div class="sub">Turn your imagination into animated stories.</div>
-
-<div class="layout">
-<div>
-<div class="panel">
-<div class="panel-title">✦ SCENE PREVIEW</div>
+<div class="workspace">
+<section class="stage-area">
+<div class="heading"><span>SCENE PREVIEW</span><span id="status">● READY</span></div>
 <div class="stage" id="stage">
-<div class="stage-label">SCENE 01 · PREVIEW</div>
+<div class="sun"></div><div class="cloud"></div><div class="ground"></div>
 <div class="character" id="character">
-<div class="head"></div>
-<div class="bodychar"></div>
-<div class="legs"><i></i><i></i></div>
+<div class="hair"></div>
+<div class="head"><div class="eye a"></div><div class="eye b"></div><div class="mouth"></div></div>
+<div class="body"></div>
+<div class="arm left"></div><div class="arm right"></div>
+<div class="leg left"></div><div class="leg right"></div>
 </div>
+<div class="label" id="label">Scene 1 · Sunny Meadow</div>
 </div>
+<div class="controls">
+<button class="control selected" id="play">▶ Play</button>
+<button class="control" id="pause">Ⅱ Pause</button>
+<button class="control" id="stop">■ Stop</button>
+<span id="timer" style="font-size:10px;color:#aaa">0.0s</span>
+</div>
+</section>
+<aside class="panel">
+<h3>⚙ Scene Properties</h3>
+<div class="field"><label>ENVIRONMENT</label>
+<select id="environment">
+<option value="day">Sunny Meadow</option>
+<option value="night">Night Sky</option>
+<option value="sunset">Sunset Valley</option>
+<option value="space">Outer Space</option>
+</select></div>
+<div class="field"><label>CHARACTER ACTION</label>
 <div class="actions">
-<button onclick="addCharacter()">＋ Character</button>
-<button onclick="changeScene()">Environment</button>
-<button onclick="toggleAnimation()">▶ Animate</button>
-<button onclick="resetScene()">↺ Reset</button>
+<button data-action="idle">🧍 Idle</button>
+<button data-action="walk">🚶 Walk</button>
+<button data-action="jump">⬆ Jump</button>
+<button data-action="dance">💃 Dance</button>
+<button data-action="wave">👋 Wave</button>
+</div></div>
+<div class="field"><label>CHARACTER POSITION</label><input type="range" id="position" min="10" max="90" value="50"></div>
+<div class="field"><label>CHARACTER SIZE</label><input type="range" id="size" min="70" max="140" value="100"></div>
+<div class="field"><label>SCENE DURATION</label>
+<select id="duration"><option value="5">5 seconds</option><option value="10" selected>10 seconds</option><option value="15">15 seconds</option><option value="20">20 seconds</option></select></div>
+</aside>
 </div>
+<section class="timeline">
+<div class="timeline-top"><strong>🎞 Timeline</strong><button class="btn" id="add">+ Add Scene</button></div>
+<div class="track" id="track"></div>
+</section>
+<section>
+<div class="prompt">
+<input id="instruction" placeholder="Try: Make the character jump, walk, or dance...">
+<button id="apply">Apply</button>
 </div>
-
-<div class="panel">
-<div class="panel-title">◷ TIMELINE</div>
-<div class="timeline" id="timeline">
-<div class="clip">Scene 01</div>
-<div class="clip">Character</div>
-<div class="clip">Animation</div>
-</div>
-<div class="actions">
-<button onclick="addScene()">＋ Add scene</button>
-</div>
-</div>
-</div>
-
-<div>
-<div class="panel chat">
-<div class="panel-title">✦ ANIMORA AI ASSISTANT</div>
-<div class="messages" id="messages">
-<div class="message">Welcome to Animora! Describe the animation you want to create. AI connection will be added in a later stage.</div>
-</div>
-<div class="chatrow">
-<input id="prompt" placeholder="Describe your idea..." onkeydown="if(event.key==='Enter')sendMessage()">
-<button class="primary" onclick="sendMessage()">Send</button>
-</div>
-</div>
-
-<div class="panel">
-<div class="panel-title">PROJECT INFORMATION</div>
-<p class="small">Project: Untitled Animation</p>
-<p class="small">Scenes: <span id="sceneCount">1</span></p>
-<p class="small">Characters: <span id="characterCount">1</span></p>
-</div>
-
-<div class="panel">
-<div class="panel-title">UPCOMING FEATURES</div>
-<p class="small">✦ AI story generation</p>
-<p class="small">✦ Character creator</p>
-<p class="small">✦ Scene builder</p>
-<p class="small">✦ Animation editor</p>
-<p class="small">✦ Video export</p>
-</div>
-</div>
-</div>
+<div class="status" id="message">Use the controls to animate your character. Local demo controls, no AI connection yet.</div>
+</section>
 </div>
 </main>
 </div>
-
 <script>
-let scenes=1,characters=1,animated=true,environment=0;
+const $=id=>document.getElementById(id);
+let scenes=[{name:"Sunny Meadow",env:"day",action:"idle",position:50,size:100}];
+let current=0,action="idle",playing=false,elapsed=0,last=0,animationFrame=0;
+function save(){
+scenes[current]={name:scenes[current].name,env:$("environment").value,action,position:+$("position").value,size:+$("size").value};
+}
+function setAction(a){
+action=a;
+$("character").className="character"+(a==="idle"?"":" "+a);
+document.querySelectorAll("[data-action]").forEach(b=>b.classList.toggle("selected",b.dataset.action===a));
+save();
+}
+function update(){
+let env=$("environment").value;
+$("stage").className="stage"+(env==="day"?"":" "+env);
+$("character").style.left="calc("+$("position").value+"% - 50px)";
+$("character").style.scale=+$("size").value/100;
+$("label").textContent="Scene "+(current+1)+" · "+({day:"Sunny Meadow",night:"Night Sky",sunset:"Sunset Valley",space:"Outer Space"}[env]);
+setAction(action);
+}
+function render(){
+$("track").innerHTML="";
+scenes.forEach((s,i)=>{
+let b=document.createElement("button");
+b.className="scene-card"+(i===current?" active":"");
+b.innerHTML="🎬 Scene "+(i+1)+"<small>"+s.name+"</small>";
+b.onclick=()=>selectScene(i);
+$("track").appendChild(b);
+});
+}
+function selectScene(i){
+save();current=i;
+let s=scenes[i];
+$("environment").value=s.env;
+$("position").value=s.position;
+$("size").value=s.size;
+action=s.action;
+update();render();stop();
+}
 function addScene(){
-scenes++;
-let clip=document.createElement("div");
-clip.className="clip";
-clip.textContent="Scene "+String(scenes).padStart(2,"0");
-document.getElementById("timeline").appendChild(clip);
-document.getElementById("sceneCount").textContent=scenes;
+save();
+scenes.push({name:"New Scene",env:$("environment").value,action:"idle",position:50,size:100});
+selectScene(scenes.length-1);
+$("message").textContent="New scene added!";
 }
-function addCharacter(){
-characters++;
-document.getElementById("characterCount").textContent=characters;
-reply("Character added to the project preview!");
+document.querySelectorAll("[data-action]").forEach(b=>b.onclick=()=>{setAction(b.dataset.action);$("message").textContent="Action changed to "+action;});
+$("environment").onchange=()=>{update();save();};
+$("position").oninput=()=>{update();save();};
+$("size").oninput=()=>{update();save();};
+$("add").onclick=$("addTop").onclick=addScene;
+function stop(){
+playing=false;elapsed=0;cancelAnimationFrame(animationFrame);
+$("status").textContent="● READY";$("timer").textContent="0.0s";
 }
-function changeScene(){
-let colors=["#21192e","#244052","#46513b","#56364e","#293b55"];
-environment=(environment+1)%colors.length;
-document.getElementById("stage").style.background=colors[environment];
+function tick(t){
+if(!playing)return;
+if(!last)last=t;
+elapsed+=(t-last)/1000;last=t;
+$("timer").textContent=elapsed.toFixed(1)+"s";
+if(elapsed>=+$("duration").value){stop();$("message").textContent="Scene finished!";return;}
+animationFrame=requestAnimationFrame(tick);
 }
-function toggleAnimation(){
-animated=!animated;
-document.getElementById("character").style.animation=animated?"bob 2s ease-in-out infinite":"none";
-}
-function resetScene(){
-scenes=1;characters=1;animated=true;environment=0;
-document.getElementById("timeline").innerHTML='<div class="clip">Scene 01</div><div class="clip">Character</div><div class="clip">Animation</div>';
-document.getElementById("sceneCount").textContent=1;
-document.getElementById("characterCount").textContent=1;
-document.getElementById("stage").style.background="";
-document.getElementById("character").style.animation="bob 2s ease-in-out infinite";
-}
-function newProject(){
-resetScene();
-document.getElementById("messages").innerHTML='<div class="message">New project started!</div>';
-}
-function reply(text){
-let box=document.createElement("div");
-box.className="message";
-box.textContent="Animora: "+text;
-document.getElementById("messages").appendChild(box);
-}
-function sendMessage(){
-let input=document.getElementById("prompt");
-let value=input.value.trim();
-if(!value)return;
-let box=document.createElement("div");
-box.className="message";
-box.textContent="You: "+value;
-document.getElementById("messages").appendChild(box);
-reply("I received your idea! Real AI story creation and animation control will be connected in a future update.");
-input.value="";
-}
+$("play").onclick=()=>{
+if(playing)return;
+playing=true;last=0;
+$("status").textContent="● PLAYING";
+if(action==="idle")$("character").classList.add("walk");
+animationFrame=requestAnimationFrame(tick);
+$("message").textContent="Animation preview playing.";
+};
+$("pause").onclick=()=>{
+playing=false;cancelAnimationFrame(animationFrame);
+$("status").textContent="Ⅱ PAUSED";
+$("message").textContent="Animation paused.";
+};
+$("stop").onclick=()=>{stop();update();};
+$("reset").onclick=()=>{
+stop();scenes=[{name:"Sunny Meadow",env:"day",action:"idle",position:50,size:100}];
+current=0;action="idle";
+$("environment").value="day";$("position").value=50;$("size").value=100;
+update();render();$("message").textContent="Project reset.";
+};
+$("apply").onclick=()=>{
+let p=$("instruction").value.toLowerCase();
+if(!p.trim())return;
+if(p.includes("jump"))setAction("jump");
+else if(p.includes("walk"))setAction("walk");
+else if(p.includes("dance"))setAction("dance");
+else if(p.includes("wave"))setAction("wave");
+else if(p.includes("idle")||p.includes("stand"))setAction("idle");
+if(p.includes("night"))$("environment").value="night";
+else if(p.includes("sunset"))$("environment").value="sunset";
+else if(p.includes("space"))$("environment").value="space";
+else if(p.includes("meadow")||p.includes("day"))$("environment").value="day";
+if(p.includes("left"))$("position").value=25;
+if(p.includes("right"))$("position").value=75;
+if(p.includes("center"))$("position").value=50;
+update();save();
+$("message").textContent="Instruction applied using built-in controls. This is not AI-generated yet.";
+};
+update();render();
 </script>
 </body>
   </html>
-  
+
