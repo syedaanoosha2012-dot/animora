@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animora — Animation Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#100d19;color:#f5efff;font-family:Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:flex}
+.sidebar{width:220px;background:#191323;padding:22px 15px;border-right:1px solid #30243f;flex-shrink:0}
+.logo{font-size:27px;font-weight:900;color:#c29aff;letter-spacing:2px}
+.tag{font-size:9px;letter-spacing:2px;color:#998aa9;margin-top:7px}
+.nav-title{font-size:10px;color:#84758f;margin:30px 8px 10px;letter-spacing:2px}
+.nav{padding:12px;border-radius:8px;color:#c2b5d0;font-size:13px;margin:4px 0}
+.nav.active,.nav:hover{background:#38264e;color:#e4d2ff}
+.main{flex:1;min-width:0}
+header{height:65px;border-bottom:1px solid #30243f;display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+header span{color:#b9a9ca;font-size:13px}
+button{border:1px solid #63468a;background:#302341;color:#eee2ff;padding:10px 14px;border-radius:8px}
+button.primary{background:#8754d0;border-color:#a67ce9}
+.content{padding:22px;max-width:1500px;margin:auto}
+h1{font-size:23px;margin:0 0 7px}
+.sub{font-size:12px;color:#a99bb8;margin-bottom:22px}
+.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(240px,1fr);gap:15px}
+.panel{background:#1b1526;border:1px solid #382b49;border-radius:12px;padding:16px;margin-bottom:15px;min-width:0}
+.panel-title{font-size:12px;font-weight:bold;margin-bottom:15px;letter-spacing:.5px}
+.stage{height:330px;background:radial-gradient(ellipse at center,#45305f,#21192e 75%);border:1px solid #59406f;border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.stage:after{content:"";position:absolute;bottom:25px;width:220px;height:15px;background:#100d19;border-radius:50%;filter:blur(8px)}
+.character{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;animation:bob 2s ease-in-out infinite}
+.head{width:65px;height:65px;background:#ffd1aa;border-radius:50%;border:3px solid #392747;position:relative}
+.head:before,.head:after{content:"";position:absolute;top:28px;width:7px;height:7px;background:#342238;border-radius:50%}
+.head:before{left:16px}.head:after{right:16px}
+.bodychar{width:76px;height:90px;background:#a77aef;border:3px solid #392747;border-radius:25px 25px 16px 16px}
+.legs{display:flex;gap:12px}
+.legs i{display:block;width:20px;height:60px;background:#30233f;border-radius:10px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.stage-label{position:absolute;top:13px;left:13px;font-size:10px;color:#d4c0ee}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.actions button{font-size:11px}
+.chat{height:270px;display:flex;flex-direction:column}
+.messages{flex:1;overflow:auto;font-size:12px;color:#d1c4dc;line-height:1.6}
+.message{background:#2b2039;padding:10px;border-radius:8px;margin-bottom:8px}
+.chatrow{display:flex;gap:7px;margin-top:12px}
+input{width:100%;min-width:0;background:#100d19;border:1px solid #49385e;border-radius:8px;padding:11px;color:white}
+.timeline{display:flex;gap:8px;overflow:auto}
+.clip{min-width:100px;background:#473064;border:1px solid #7651a0;border-radius:6px;padding:12px;text-align:center;font-size:11px}
+.small{font-size:11px;color:#a99bb8}
+@media(max-width:750px){
+.sidebar{width:65px;padding:15px 7px}
+.logo{font-size:15px;letter-spacing:0;writing-mode:vertical-rl}
+.tag,.nav-title,.nav span{display:none}
+.nav{text-align:center;padding:12px 3px}
+header{padding:0 10px}
+.content{padding:12px}
+.layout{grid-template-columns:1fr}
+.stage{height:280px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="logo">ANIMORA</div>
+<div class="tag">IMAGINE. ANIMATE. CREATE.</div>
+<div class="nav-title">WORKSPACE</div>
+<div class="nav active">◈ <span>Studio</span></div>
+<div class="nav">♙ <span>Characters</span></div>
+<div class="nav">▧ <span>Environments</span></div>
+<div class="nav">▤ <span>Projects</span></div>
+<div class="nav-title">AI STUDIO</div>
+<div class="nav">✦ <span>AI Assistant</span></div>
+<div class="nav">⚙ <span>Settings</span></div>
+</aside>
+
+<main class="main">
+<header>
+<span>My Workspace / Untitled Project</span>
+<button class="primary" onclick="newProject()">＋ New project</button>
+</header>
+
+<div class="content">
+<h1>Your creative studio.</h1>
+<div class="sub">Turn your imagination into animated stories.</div>
+
+<div class="layout">
+<div>
+<div class="panel">
+<div class="panel-title">✦ SCENE PREVIEW</div>
+<div class="stage" id="stage">
+<div class="stage-label">SCENE 01 · PREVIEW</div>
+<div class="character" id="character">
+<div class="head"></div>
+<div class="bodychar"></div>
+<div class="legs"><i></i><i></i></div>
+</div>
+</div>
+<div class="actions">
+<button onclick="addCharacter()">＋ Character</button>
+<button onclick="changeScene()">Environment</button>
+<button onclick="toggleAnimation()">▶ Animate</button>
+<button onclick="resetScene()">↺ Reset</button>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-title">◷ TIMELINE</div>
+<div class="timeline" id="timeline">
+<div class="clip">Scene 01</div>
+<div class="clip">Character</div>
+<div class="clip">Animation</div>
+</div>
+<div class="actions">
+<button onclick="addScene()">＋ Add scene</button>
+</div>
+</div>
+</div>
+
+<div>
+<div class="panel chat">
+<div class="panel-title">✦ ANIMORA AI ASSISTANT</div>
+<div class="messages" id="messages">
+<div class="message">Welcome to Animora! Describe the animation you want to create. AI connection will be added in a later stage.</div>
+</div>
+<div class="chatrow">
+<input id="prompt" placeholder="Describe your idea..." onkeydown="if(event.key==='Enter')sendMessage()">
+<button class="primary" onclick="sendMessage()">Send</button>
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-title">PROJECT INFORMATION</div>
+<p class="small">Project: Untitled Animation</p>
+<p class="small">Scenes: <span id="sceneCount">1</span></p>
+<p class="small">Characters: <span id="characterCount">1</span></p>
+</div>
+
+<div class="panel">
+<div class="panel-title">UPCOMING FEATURES</div>
+<p class="small">✦ AI story generation</p>
+<p class="small">✦ Character creator</p>
+<p class="small">✦ Scene builder</p>
+<p class="small">✦ Animation editor</p>
+<p class="small">✦ Video export</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<script>
+let scenes=1,characters=1,animated=true,environment=0;
+function addScene(){
+scenes++;
+let clip=document.createElement("div");
+clip.className="clip";
+clip.textContent="Scene "+String(scenes).padStart(2,"0");
+document.getElementById("timeline").appendChild(clip);
+document.getElementById("sceneCount").textContent=scenes;
+}
+function addCharacter(){
+characters++;
+document.getElementById("characterCount").textContent=characters;
+reply("Character added to the project preview!");
+}
+function changeScene(){
+let colors=["#21192e","#244052","#46513b","#56364e","#293b55"];
+environment=(environment+1)%colors.length;
+document.getElementById("stage").style.background=colors[environment];
+}
+function toggleAnimation(){
+animated=!animated;
+document.getElementById("character").style.animation=animated?"bob 2s ease-in-out infinite":"none";
+}
+function resetScene(){
+scenes=1;characters=1;animated=true;environment=0;
+document.getElementById("timeline").innerHTML='<div class="clip">Scene 01</div><div class="clip">Character</div><div class="clip">Animation</div>';
+document.getElementById("sceneCount").textContent=1;
+document.getElementById("characterCount").textContent=1;
+document.getElementById("stage").style.background="";
+document.getElementById("character").style.animation="bob 2s ease-in-out infinite";
+}
+function newProject(){
+resetScene();
+document.getElementById("messages").innerHTML='<div class="message">New project started!</div>';
+}
+function reply(text){
+let box=document.createElement("div");
+box.className="message";
+box.textContent="Animora: "+text;
+document.getElementById("messages").appendChild(box);
+}
+function sendMessage(){
+let input=document.getElementById("prompt");
+let value=input.value.trim();
+if(!value)return;
+let box=document.createElement("div");
+box.className="message";
+box.textContent="You: "+value;
+document.getElementById("messages").appendChild(box);
+reply("I received your idea! Real AI story creation and animation control will be connected in a future update.");
+input.value="";
+}
+</script>
+</body>
+  </html>
+  
